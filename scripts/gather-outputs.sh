@@ -32,8 +32,8 @@ __initialise() {
 ## output values gathers all the outputs and prints them
 ## out as json so it can be processed by programs such as jq
 __output_values() {
-	if [ $# -lt 2 ]; then
-		echo >&2 "[ERROR] function requires <platform> <project-folder>"
+	if [ $# -lt 3 ]; then
+		echo >&2 "[ERROR] function requires <platform> <project-variables> <project-folder>"
 		exit 1
 	fi
 	provider=""
@@ -57,7 +57,7 @@ __output_values() {
 		--template "templates/${provider}" \
 		--output "."
 	terraform init
-	terraform output --state "state/${provider}/${2}" --json
+	terraform output --state "state/${provider}/${3}" --json
 }
 
 __initialise

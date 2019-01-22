@@ -32,8 +32,8 @@ __initialise() {
 ## apply changes loads the given template for the cloud provider
 ## and will automatically apply the changes as part of this function call.
 __apply_changes() {
-  if [ $# -lt 2 ]; then
-		echo >&2 "[ERROR] function requires <platform> <project-folder>"
+  if [ $# -lt 3 ]; then
+		echo >&2 "[ERROR] function requires <platform> <project-variables> <project-folder>"
 		exit 1
 	fi
 	provider=""
@@ -58,7 +58,7 @@ __apply_changes() {
 		--output "."
   terraform init
 	terraform validate
-	terraform apply --state="state/${provider}/${2}" --auto-approve
+	terraform apply --state="state/${provider}/${3}" --auto-approve
 }
 
 __initialise

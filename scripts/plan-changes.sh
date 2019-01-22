@@ -32,8 +32,8 @@ __initialise() {
 ## prepare template loads to the correct template
 ## and creates the terraform file ready to plan.
 __prepare_template() {
-	if [ $# -lt 2 ]; then
-		echo >&2 "[ERROR] function requires <platform> <project-folder>"
+	if [ $# -lt 3 ]; then
+		echo >&2 "[ERROR] function requires <platform> <project-variables> <project-folder>"
 		exit 1
 	fi
 	provider=""
@@ -58,7 +58,7 @@ __prepare_template() {
 		--output "."
 	terraform init
 	terraform validate
-	terraform plan --state="state/${provider}/${2}" --out="${provider}/${2}"
+	terraform plan --state="state/${provider}/${3}" --out="${provider}/${3}"
 }
 
 __initialise
