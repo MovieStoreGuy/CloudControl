@@ -23,6 +23,8 @@ provider "google" {
 {{ range $team := .teams }}
   {{ range $user := $team.members }}
   {{ range $role := $team.roles }}
+# As each resource needs to have a unique name,
+# we take the hash as golang template doesn't support numerical indexing
 resource "google_project_iam_member" "{{$team.name}}_{{md5 $user $role}}" {
   project = "{{$ctx.project}}"
 

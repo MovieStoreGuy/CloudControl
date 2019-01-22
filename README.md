@@ -10,7 +10,7 @@ The intention of this project is to make IAM access easy for all the major cloud
 and ensure that no technical knowledge of terraform is needed.
 
 - [x] Google Cloud Platform (gcp)
-- [ ] Amazon Web Services   (aws)
+- [x] Amazon Web Services   (aws)
 - [ ] Microsoft Azure       (azure)
 
 ## Documentation
