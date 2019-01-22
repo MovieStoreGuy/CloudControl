@@ -29,9 +29,9 @@ __initialise() {
 	tfenv install
 }
 
-## prepare template loads to the correct template
-## and creates the terraform file ready to plan.
-__prepare_template() {
+## output values gathers all the outputs and prints them
+## out as json so it can be processed by programs such as jq
+__output_values() {
 	if [ $# -lt 2 ]; then
 		echo >&2 "[ERROR] function requires <platform> <project-folder>"
 		exit 1
@@ -57,9 +57,8 @@ __prepare_template() {
 		--template "templates/${provider}" \
 		--output "."
 	terraform init
-	terraform validate
-	terraform plan --state="state/${provider}/${2}" --out="${provider}/${2}"
+	terraform output --state "state/${provider}/${2}" --json
 }
 
 __initialise
-__prepare_template "$@"
+__output_values "$@"

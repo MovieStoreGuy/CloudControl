@@ -58,7 +58,7 @@ __apply_changes() {
 		--output "."
   terraform init
 	terraform validate
-	terraform apply --state="${provider}/${2}" --auto-approve
+	terraform apply --state="state/${provider}/${2}" --auto-approve
 }
 
 __initialise

@@ -1,0 +1,37 @@
+---
+project : "your-awesome-project"
+# Your main GCP operating region, doesn't really matter what you set here
+# as IAM is multi regional
+region  : "us-central1-a"
+
+teams:
+  - name : "qa"
+    members:
+      - "leadqa@awesome.org"
+      - "underling@awesome.org"
+    roles:
+      - "roles/viewer"
+      - "roles/container.developer"
+  - name : "platform"
+    members:
+      - "platform.engineer.0@awesome.org"
+      - "platform.engineer.1@awesome.org"
+      - "platform.engineer.2@awesome.org"
+    roles:
+      - "roles/editor"
+  - name : "engineering"
+    members:
+      - "frontend.dev@awesome.org"
+      - "backend.dev@awesome.org"
+    roles:
+      - "roles/storage.objectViewer"
+      - "roles/container.developer"
+
+serviceAccounts:
+  - name: ci
+    roles:
+      - "roles/storage.objectAdmin"
+      - "roles/container.developer"
+  - name: external-monitor
+    roles:
+      - "roles/viewer"
