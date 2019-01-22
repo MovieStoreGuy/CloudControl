@@ -15,3 +15,6 @@ and ensure that no technical knowledge of terraform is needed.
 
 ## Documentation
 In order to reduce the size of a potential git history, all of the documentation has being hosted as [Github wiki](https://github.com/MovieStoreGuy/CloudAccess/wiki).
+
+## Contributing
+Any contribution is welcome and encouraged. This project should be accessible to everyone so more people helping, the better.
