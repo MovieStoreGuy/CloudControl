@@ -1,0 +1,54 @@
+---
+stages:
+  - plan
+  - apply
+  - output
+
+.plan_stanza: &plan_stanza
+  stage: plan
+  image: golang:1.11.4
+  script:
+    - download-state ${PROVIDER_FOLDER}
+    - ./scripts/plan-changes.sh ${PROVIDER} ${PROVIDER_VARIABLES} ${PROVIDER_FOLDER}
+
+.apply_stanza: &apply_stanza
+  stage : apply
+  image : golang:1.11.4
+  when  : manual
+  only:
+     - master
+  script:
+    - download-state ${PROVIDER_FOLDER}
+    - ./scripts/plan-changes.sh ${PROVIDER} ${PROVIDER_VARIABLES} ${PROVIDER_FOLDER}
+    - upload-state state/${PROVIDER_FOLDER}
+
+.output_stanza: &output_stanza
+  stage: output
+  image: golang:1.11.4
+  script:
+    - download-state ${PROVIDER_FOLDER}
+    - ./scripts/gather-outputs.sh ${PROVIDER} ${PROVIDER_VARIABLES} ${PROVIDER_FOLDER} | tea -a ${PROVIDER}_outputs.json
+    - upload-outputs ${PROVIDER}_outputs.json
+
+## aws examples for gitlab
+## gcp is the same just s/aws/gcp/g
+aws-plan:
+  <<: *plan_stanza
+  variables:
+    PROVIDER: aws
+    PROVIDER_VARIABLES: _examples/providers/aws.yaml
+    PROVIDER_FOLDER: aws/awesome.org/
+
+aws-apply:
+  <<: *apply_stanza
+  variables:
+    PROVIDER: aws
+    PROVIDER_VARIABLES: _examples/providers/aws.yaml
+    PROVIDER_FOLDER: aws/awesome.org/
+
+aws-output:
+  <<: *output_stanza
+  variables:
+    PROVIDER: aws
+    PROVIDER_VARIABLES: _examples/providers/aws.yaml
+    PROVIDER_FOLDER: aws/awesome.org/
