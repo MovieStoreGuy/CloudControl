@@ -32,7 +32,7 @@ resource "aws_iam_group_membership" "{{ $team.name }}_membership" {
   name = "{{ $team.name }}"
 
   users = [{{ range $member := $team.members }}
-    "${aws_iam_user.{{ $team.name }}_{{ $member }}.name}",{{ end }}
+    "${aws_iam_user.{{ $team.name }}_{{ md5 $member }}.name}",{{ end }}
   ]
 
   group = "${aws_iam_group.{{ $team.name }}.name}"
@@ -47,7 +47,7 @@ resource "aws_iam_group_policy" "{{$team.name}}_policy" {
 EOF
 }
   {{ range $member := $team.members }}
-resource "aws_iam_user" "{{ $team.name }}_{{ $member }}" {
+resource "aws_iam_user" "{{ $team.name }}_{{ md5 $member }}" {
   name = "{{ $member }}"
   path = "{{ $team.path }}"
 }

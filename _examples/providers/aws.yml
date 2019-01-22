@@ -1,0 +1,61 @@
+---
+# Acces Key and Secret Key are
+# not stored here to encourage good security practices.
+region : us-east-1
+
+teams:
+  - name : qa
+    path : "/quality-assurance/"
+    members:
+      - "leadqa@awesome.org"
+      - "underling@awesome.org"
+    policy: |-
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Action": [
+              "ec2:Describe*"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+          }
+        ]
+      }
+  - name : "platform"
+    path : "/platform/"
+    members:
+      - "platform.engineer.0@awesome.org"
+      - "platform.engineer.1@awesome.org"
+      - "platform.engineer.2@awesome.org"
+    policy: |-
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Action": [
+              "ec2:Describe*"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+          }
+        ]
+      }
+  - name: "engineering"
+    path: "/engineering/"
+    members:
+      - "frontend.dev@awesome.org"
+      - "backend.dev@awesome.org"
+    policy: |-
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Action": [
+              "ec2:Describe*"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+          }
+        ]
+      }
