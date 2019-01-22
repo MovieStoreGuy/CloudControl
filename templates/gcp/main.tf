@@ -25,9 +25,44 @@ provider "google" {
   {{ range $role   := $team.roles }}
 resource "google_project_iam_member" "{{$team.name}}_{{$user}}_{{md5 $role}}" {
   project = "{{$ctx.project}}"
+
   role    = "{{$role}}"
   member  = "user:{{$email}}"
 }
   {{ end }}
   {{ end }}
+{{ end }}
+
+## This will create all and manage all the services accounts
+## defined inside the variables file.
+## This is created in the same way as the member block to ensure
+## that we do not override already existing accounts or accounts not managed
+## by terraform.
+## This will also output the service_account keys in base64 encoded so that
+## they can be uploaded or stored in a more convenient manor
+{{ range $serviceAccount := .serviceAccounts }}
+resource "google_service_account" "{{$serviceAccount.name}}" {
+  project      = "{{$ctx.project}}"
+  account_id   = "{{$serviceAccount.name}}"
+  display_name = "{{$serviceAccount.name}}"
+}
+
+resource "google_service_account_key" "{{$serviceAccount.name}}_key" {
+  project            = "{{$ctx.project}}"
+  service_account_id = "${google_service_account.{{$serviceAccount.name}}.name}"
+}
+
+output "{{$serviceAccount.name}}_private_key_base64_encoded" {
+  value = "${google_service_account_key.{{$serviceAccount.name}}.private_key}"
+}
+  {{ range $role := $serviceAccount.roles}}
+resource "google_service_account_iam_member" "{{$serviceAccount.name}}_{{md5 $role}}" {
+  depends_on = ["google_service_account.{{$serviceAccount.name}}"]
+  project    = "{{$ctx.project}}"
+
+  role               = "{{$role}}"
+  member             = "${google_service_account.{{$serviceAccount.name}}.email}"
+  service_account_id = "${google_service_account.{{$serviceAccount.name}}.name}"
+}
+  {{ end}}
 {{ end }}
