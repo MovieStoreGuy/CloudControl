@@ -4,3 +4,14 @@
 
 This projects defines a template that enables anyone to set an automated process
 to various different cloud providers.
+
+## Supported Providers
+The intention of this project is to make IAM access easy for all the major cloud platforms
+and ensure that no technical knowledge of terraform is needed.
+
+- [x] Google Cloud Platform (gcp)
+- [ ] Amazon Web Services   (aws)
+- [ ] Microsoft Azure       (azure)
+
+## Documentation
+In order to reduce the size of a potential git history, all of the documentation has being hosted as [Github wiki](https://github.com/MovieStoreGuy/CloudAccess/wiki).
