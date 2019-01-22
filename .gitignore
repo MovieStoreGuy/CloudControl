@@ -1,3 +1,4 @@
 # Generated files during processing
 .tfenv
 .terraform
+state/
