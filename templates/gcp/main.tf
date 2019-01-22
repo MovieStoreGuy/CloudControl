@@ -21,9 +21,9 @@ provider "google" {
 ## This is particularlly important with service accounts
 ## as roles applied to them may overlap with roles used on members
 {{ range $team := .teams }}
-  {{ range $user, $email := $team.members }}
-  {{ range $role   := $team.roles }}
-resource "google_project_iam_member" "{{$team.name}}_{{$user}}_{{md5 $role}}" {
+  {{ range $user := $team.members }}
+  {{ range $role := $team.roles }}
+resource "google_project_iam_member" "{{$team.name}}_{{md5 $user $role}}" {
   project = "{{$ctx.project}}"
 
   role    = "{{$role}}"
