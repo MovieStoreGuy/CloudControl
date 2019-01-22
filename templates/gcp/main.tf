@@ -64,5 +64,5 @@ resource "google_service_account_iam_member" "{{$serviceAccount.name}}_{{md5 $ro
   member             = "${google_service_account.{{$serviceAccount.name}}.email}"
   service_account_id = "${google_service_account.{{$serviceAccount.name}}.name}"
 }
-  {{ end}}
+  {{ end }}
 {{ end }}
