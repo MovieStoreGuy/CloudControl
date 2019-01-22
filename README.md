@@ -12,6 +12,7 @@ and ensure that no technical knowledge of terraform is needed.
 - [x] Google Cloud Platform (gcp)
 - [x] Amazon Web Services   (aws)
 - [ ] Microsoft Azure       (azure)
+  - _requires further development support from the terraform provider maintainer_
 
 ## Documentation
 In order to reduce the size of a potential git history, all of the documentation has being hosted as [Github wiki](https://github.com/MovieStoreGuy/CloudAccess/wiki).
