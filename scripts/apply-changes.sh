@@ -56,7 +56,7 @@ __apply_changes() {
 		--filter ".*tf" \
 		--template "templates/${provider}" \
 		--output "."
-  terraform init
+	terraform init
 	terraform validate
 	terraform apply --state="state/${provider}/${3}" --auto-approve
 }
